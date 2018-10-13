@@ -1,0 +1,10 @@
+PROGRAM phuonggdsdsdsds ;
+
+BEGIN
+	a=1;
+	if(a>0) then
+		a:=0;
+	else
+		ab = a+a;	
+
+END
