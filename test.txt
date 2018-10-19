@@ -1,10 +1,13 @@
-PROGRAM phuonggdsdsdsds ;
+Program quanghuy; 
+/* nguyen quang huy
+ okk
+kok */
 
-BEGIN
-	a=1;
-	if(a>0) then
-		a:=0;
-	else
-		ab = a+a;	
-
-END
+BEGIN 
+	a=102020202;
+	if(a>=0) then
+		index_:=0;
+	else 
+		b:=a+a;	 // This is comment
+	c = a+b;
+End

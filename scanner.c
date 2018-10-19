@@ -1,38 +1,3 @@
-#ifndef _SCANNERH_
-#define _SCANNER_H
-#include<string.h>
-#include<ctype.h>
-#include<stdio.h>
-#include<stdlib.h>
-#include<stdbool.h>
-
-
-typedef enum {
-	NONE=0, IDENT, NUMBER,
-	BEGIN, CALL, CONST, DO,  ELSE, END, FOR, IF, ODD,
-	PROCEDURE, PROGRAM, THEN, TO, VAR, WHILE,
-	PLUS, MINUS, TIMES, SLASH, EQU, NEQ, LSS, LEQ, GRT, GEQ, LPARENT, RPARENT, LBRACK, RBRACK, PERIOD, COMMA, SEMICOLON,  ASSIGN, PERCENT,COMMENT
-} TokenType;
-
-const char* keyword[] = {"NONE","IDENT","NUMBER","BEGIN","CAL",
-	"CONST","DO","ELSE","END","FOR","IF","ODD","PROCEDURE",
-	"PROGRAM","THEN","TO","VAR","WHILE","PLUS","MINUS","TIMES",
-	"SLASH","EQU","NEQ","LSS","LEQ","GRT","GEQ","LPARENT","RPARENT",	
-	"LBRACK","RBRACK","PERIOD","COMMA","SEMICOLON","ASSIGN","PERCENT","COMMENT"};
-	
-int numKey = 38;
-TokenType Token;
-int  countDigit;
-int num;
-#define MAX_IDENT_LEN 50
-char Id[MAX_IDENT_LEN+1];
-char c, str[10000];
-int i_ident = -1;
-int index_ch = -1;
-int L;
-bool isComment = false;
-
-
 
 void getCh(){
 	index_ch++;
@@ -212,4 +177,3 @@ void reset(){
 	i_ident = -1;
 	index_ch = -1;
 }
-#endif

@@ -16,7 +16,6 @@ int main(){
 		fgets(str,10000,input);
 		L = strlen(str);
 		reset();
-		
 	
 		getCh();
 			
@@ -24,17 +23,17 @@ int main(){
 			Token = getToken();
 			if(isComment) continue;
 			if(Token==0){
-				printf(" ");
+				fprintf(output," ");
 			}
 			else if(Token==1){
-				checkKey();
+				checkKey(output);
 			}
 			else if(Token==2){
-			 	printf(" NUMBER(%d) ",num);
+			 	fprintf(output," NUMBER(%d) ",num);
 				
 			}
 			else{
-			 	printf("%s",getTokenString(Token));
+			 	fprintf(output,"%s",getTokenString(Token));
 			};
 		};
 		fprintf(output,"\n");

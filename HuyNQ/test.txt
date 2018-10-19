@@ -1,0 +1,15 @@
+Program quanghuy;
+
+/* Copyright by Quang Huy,
+	Scanner
+	This is comments 
+	 */
+
+BEGIN
+	a=1;
+	if(a>=0) then
+		index_:=0;
+	else 
+		b:=a+a;	 // This is comment
+	c = a+b;
+END
