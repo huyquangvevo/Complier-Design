@@ -25,6 +25,8 @@ TokenType Token;
 int  countDigit;
 int num;
 #define MAX_IDENT_LEN 50
+#define MAX_LEN_VAR 10
+#define MAX_LEN_NUM 9
 char Id[MAX_IDENT_LEN+1];
 char c, str[10000];
 int i_ident = -1;
@@ -50,7 +52,7 @@ TokenType getToken(){
 		i_ident = -1;
 		while(c==95||isdigit(c)||isalpha(c)){
 			i_ident++;
-			if(i_ident>10)
+			if(i_ident>MAX_LEN_VAR)
 				break;
 			Id[i_ident]=c;
 			getCh();	
@@ -63,7 +65,7 @@ TokenType getToken(){
 		countDigit = 0;
 		while(isdigit(c)){
 			countDigit++;
-			if(countDigit>9){
+			if(countDigit>MAX_LEN_NUM){
 				break;
 			}
 			int digit = c - '0';
@@ -85,7 +87,7 @@ TokenType getToken(){
 			
 		case '*':
 			getCh();
-			if(c=='/'){
+			if(c==')'){
 				isComment = false;
 				getCh();
 				return COMMENT;
@@ -98,11 +100,6 @@ TokenType getToken(){
 				index_ch = L;
 				return COMMENT;
 			}
-			
-			if(c=='*'){
-				isComment = true;
-				return COMMENT;
-				}
 			
 			return SLASH;
 			
@@ -136,10 +133,15 @@ TokenType getToken(){
 		
 		case '(':
 			getCh();
+			if(c=='*'){
+				isComment = true;
+				return COMMENT;
+			}
 			return LPARENT;
 			
 		case ')':
 			getCh();
+			
 			return RPARENT;
 			
 		case '[':
@@ -203,8 +205,6 @@ bool checkKey(){
 		printf("%c",Id[j]);
 	printf(") ");
 	return false;
-//	strncat(s,Id,i_ident+1);
-//	printf(" %s(%s) ",keyword[1],s);
 
 }
 

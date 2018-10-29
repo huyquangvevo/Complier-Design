@@ -10,13 +10,13 @@ int main(int argc, char** argv){
 	fflush(stdin);
 	FILE *input,*output;
 	char result[] = " ";
-	
-//	printf("%s\n",argv[1]);
-	
+		
 //	input = fopen("test.txt","r");
 	input = fopen(argv[1],"r");
-	while(!feof(input)){
-		fgets(str,10000,input);
+
+	while(1){
+		if(fgets(str,10000,input)==NULL)
+			return -1;
 		L = strlen(str);
 		reset();
 	
@@ -49,9 +49,9 @@ int main(int argc, char** argv){
 			else{
 			 	printf("%s",getTokenString(Token));
 			};
-		};
+		};	
 		printf("\n");
-	}
+	};
 	fclose(input);
 	fclose(output);
 	return 0;

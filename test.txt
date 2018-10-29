@@ -1,10 +1,11 @@
 Program quanghuy; 
-/* nguyen quang huy
- okk
-kok */
+(* nguyen quang huy
+ghghghg
+addfd
+kok *)
 
 BEGIN 
-	a=102020202;
+	aaa=1020202as;
 	if(a>=0) then
 		index_:=0;
 	else 
