@@ -1,7 +1,11 @@
-Program huy; 
+Program quanghuy; 
+(* nguyen quang huy
+ghghghg
+addfd
+kok *)
 
 BEGIN 
-	aaa := 1020202as;
+	aaa=1020202as;
 	if(a>=0) then
 		index_:=0;
 	else 
