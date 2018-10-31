@@ -14,7 +14,7 @@ typedef enum {
 	PLUS, MINUS, TIMES, SLASH, EQU, NEQ, LSS, LEQ, GRT, GEQ, LPARENT, RPARENT, LBRACK, RBRACK, PERIOD, COMMA, SEMICOLON,  ASSIGN, PERCENT,COMMENT
 } TokenType;
 
-const char* keyword[] = {"NONE","IDENT","NUMBER","BEGIN","CAL",
+const char* keyword[] = {"NONE","IDENT","NUMBER","BEGIN","CALL",
 	"CONST","DO","ELSE","END","FOR","IF","ODD","PROCEDURE",
 	"PROGRAM","THEN","TO","VAR","WHILE","PLUS","MINUS","TIMES",
 	"SLASH","EQU","NEQ","LSS","LEQ","GRT","GEQ","LPARENT","RPARENT",	
@@ -45,8 +45,9 @@ void getCh(){
 	index_ch++;
 	c = str[index_ch];
 	if(index_ch>=L) {
-		if(fgets(str,10000,input)==NULL)
+		if(fgets(str,10000,input)==NULL){
 			exit(0);
+		}
 		countLine ++;
 		printf("\n");	
 	//	printf("\n%s\n",str);
@@ -67,7 +68,8 @@ TokenType getToken(){
 		while(c==95||isdigit(c)||isalpha(c)){
 			i_ident++;
 			if(i_ident>MAX_LEN_VAR)
-				break;
+				return (TokenType) checkKey();
+			//	break;
 			Id[i_ident]=c;
 			getCh();	
 		}
@@ -213,6 +215,9 @@ TokenType getToken(){
 			}
 			
 	}
+	
+	printf("\n\nerror syntax: %c, tai dong %d\n ",c,countLine);
+	exit(0);
 		
 	return NONE;
 	

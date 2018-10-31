@@ -4,18 +4,35 @@ CONST
   m =  999999,
   n = 21;
 
-VAR ;
+VAR a,b,c,d,huy;
 
-PROCEDURE multiply;
+
 VAR a, b;
+
+
+procedure huy(var a;b;c);
+var c;
+begin
+b:=c;
+d:=a;
+end;
 
 BEGIN
   a := x;
   b := y;
   z := 0;
-  WHILE b > 0 DO BEGIN
+  call a(b,c;d);
+  WHILE b=0 do BEGIN
     IF ODD b THEN z := z + a;
     a := 2 * a;
     b := b / 2;
-  END
-End;
+  END;
+  if a>b then 
+  begin
+    a:=a+b;
+    c:=a;
+    end
+    else 
+      c:=d;
+    d:=a;
+End.

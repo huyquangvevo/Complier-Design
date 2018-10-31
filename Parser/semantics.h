@@ -21,8 +21,7 @@ void printToken(){
 
 
 void getError(ErrorType ET){
-//	printf(" %s ",keyword[Token]);
-	printf("\n\n%s tai dong %d\n\n",errors[ET],countLine);
+	printf("\n\n%s, \n \t tai dong %d\n\n",errors[ET],countLine);
 	exit(0);
 	
 };
@@ -50,17 +49,12 @@ void factor(){
 			expression();
 			if(Token == RBRACK) {
 				Token = getToken();
-			//	expression();
 			} else {
 				getError(MISSING_RBRACK);
 			}
-		} else {
-			expression();
 		}
-		
 	} else if(Token == NUMBER) {
 		Token = getToken();
-	//	expression();
 	} else if(Token == LPARENT) {
 		Token = getToken();
 		expression();
@@ -76,7 +70,7 @@ void factor(){
 
 void term(){
 	factor();
-	while(Token == TIMES || Token == SLASH){
+	while(Token == TIMES || Token == SLASH || Token == PERCENT){
 		Token = getToken();
 		factor();
 	}
@@ -84,13 +78,18 @@ void term(){
 
 
 void condition(){
-	expression();
-	if(Token == EQU || Token == NEQ || Token == LSS|| 
-	Token == LEQ || Token == GRT || Token == GEQ || Token == ODD) {
+	if(Token == ODD){
 		Token = getToken();
 		expression();
-	} else {
-		getError(CONDITION_SYNTAX);
+	} else {	
+		expression();
+		if(Token == EQU || Token == NEQ || Token == LSS|| 
+		Token == LEQ || Token == GRT || Token == GEQ) {
+			Token = getToken();
+			expression();
+		} else {
+			getError(CONDITION_SYNTAX);
+		}
 	}
 };
 
@@ -100,17 +99,25 @@ void statement(){
 	
 	if(Token == IDENT) {
 		Token = getToken();
+		if(Token == LBRACK) {
+			Token = getToken();
+			expression();
+			if(Token == RBRACK){
+				Token = getToken();
+			} else {
+				getError(MISSING_RBRACK);
+			}
+		};
 		if(Token == ASSIGN){
 			Token = getToken();
-		//	printToken();
 			expression();
 		} else {
-		//	printf("\n%s\n",keyword[Token]);
 			getError(MISSING_ASSIGN);
 		}
 	} else if(Token == CALL){
 		Token = getToken();
 		if(Token == IDENT){
+			Token = getToken();			
 			if(Token == LPARENT){
 				Token = getToken();
 				expression();
@@ -119,19 +126,21 @@ void statement(){
 					expression();
 				}
 				if(Token = RPARENT)
-					getToken(); 
+					Token = getToken(); 
 				else 
 					getError(MISSING_RPARENT);
-			}
-		} else getError(MISSING_NAME_FUNCTION);
+			};
+		} else 
+			getError(MISSING_NAME_FUNCTION);
 	} else if (Token == BEGIN) {
 		do {
 		Token = getToken();
 		statement();
 		} while(Token == SEMICOLON);
 	
-		if(Token==END) 
+		if(Token==END) {
 			Token = getToken();
+		}
 		else 
 			getError(MISSING_END);
 	} else if (Token == IF){
@@ -166,7 +175,10 @@ void statement(){
 				expression();
 				if(Token == TO) {
 					Token = getToken();
+					if(Token == DO) 
+						getError(MISSING_EXPRESSION);
 					expression();
+					
 					if(Token == DO) {
 						Token = getToken();
 						statement();
@@ -255,8 +267,8 @@ void block(){
 		if (Token == IDENT){
 			Token = getToken();
 			if(Token == LPARENT) {
-				Token = getToken();
-				do{
+				do{ 
+					Token = getToken();
 					if(Token == VAR)
 						Token = getToken();
 					if(Token == IDENT)
@@ -286,7 +298,13 @@ void block(){
 			statement();
 		} while(Token == SEMICOLON);
 		if(Token == END){
-			Token = getToken();
+			if(index_ch<L-1)
+				Token = getToken();
+
+			if(Token == SEMICOLON){
+				Token = getToken();
+				block();
+			}
 		} else {
 			getError(MISSING_END);
 		}
@@ -304,10 +322,8 @@ void program(){
 			if(Token == SEMICOLON){
 				Token = getToken();
 				block();
-			//	printf("\n\n\n");
-			//	printToken();
 				if(Token == PERIOD){
-					printf("\nSuccessfull!");
+					printf("\n\n ----- Successfull! -----");
 				} else {
 					getError(MISSING_DOT);
 				}
