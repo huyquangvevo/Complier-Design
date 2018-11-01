@@ -1,0 +1,21 @@
+Program huy; 
+
+procedure huy;
+var a,b;
+const m= 10,n=11;
+begin 
+	c:=b
+end;
+
+
+BEGIN 
+	call Huy;
+	a := 1020202;
+	if a>=0 then
+		index_:=0
+	else 
+	begin
+		b:=a+a;	 
+	c := a+b;
+	end
+End.
