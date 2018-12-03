@@ -1,0 +1,11 @@
+Program huy; 
+
+var a,b,c;
+
+BEGIN 
+	
+		b:=a+a;
+		c := a+b;
+		if a>b+*10 then
+		 a:=a;
+End.

@@ -1,7 +1,8 @@
-#ifndef _SEMANTICH_
-#define _SEMANTICH_
+#ifndef _SEMANTIC_H_
+#define _SEMANTIC_H_
 #include "scanner.h"
 #include "error.h"
+#include"grammar.h"
 
 void getError(ErrorType ET);
 void expression();
@@ -89,7 +90,7 @@ void condition(){
 			Token = getToken();
 			expression();
 		} else {
-			getError(CONDITION_SYNTAX);
+			getError(CONDITION_SYNTAX_ERROR);
 		}
 	}
 };
@@ -99,7 +100,7 @@ void condition(){
 void statement(){
 	
 	if(Token == IDENT) {
-		Token = getToken();
+	/*	Token = getToken();
 		if(Token == LBRACK) {
 			Token = getToken();
 			expression();
@@ -115,6 +116,8 @@ void statement(){
 		} else {
 			getError(MISSING_ASSIGN);
 		}
+	*/ 
+		compileStatement();
 	} else if(Token == CALL){
 		Token = getToken();
 		if(Token == IDENT){
@@ -274,7 +277,7 @@ void block(){
 					if(Token == IDENT)
 						Token = getToken();
 					else 
-						getError(MISSING_NAME_PARAMETER);
+						getError(MISSING_DECLARE_VAR);
 
 				while(Token == SEMICOLON){ 
 					Token = getToken();
@@ -328,7 +331,8 @@ void program(){
 			Token = getToken();
 			if(Token == SEMICOLON){
 				Token = getToken();
-				block();
+			//	block();
+				compileBlock();
 				if(Token == PERIOD){
 					printf("\n\n ----- Successfull! -----");
 				} else {

@@ -1,5 +1,5 @@
-#ifndef _SCANNERH_
-#define _SCANNER_H
+#ifndef _SCANNER_H_
+#define _SCANNER_H_
 #include<string.h>
 #include<ctype.h>
 #include<stdio.h>
@@ -8,7 +8,7 @@
 
 
 typedef enum {
-	NONE=0, IDENT, NUMBER,
+	NONE = 0, IDENT, NUMBER,
 	BEGIN, CALL, CONST, DO,  ELSE, END, FOR, IF, ODD,
 	PROCEDURE, PROGRAM, THEN, TO, VAR, WHILE,
 	PLUS, MINUS, TIMES, SLASH, EQU, NEQ, LSS, LEQ, GRT, GEQ, LPARENT, RPARENT, LBRACK, RBRACK, PERIOD, COMMA, SEMICOLON,  ASSIGN, PERCENT,COMMENT

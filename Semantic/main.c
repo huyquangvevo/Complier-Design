@@ -5,7 +5,8 @@
 #include<ctype.h>
 #include<stdbool.h>
 #include<conio.h>
-#include"semantics.h"
+//#include"semantics.h"
+#include"grammar.h"
 
 int main(int argc, char** argv){
 	fflush(stdin);

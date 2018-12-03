@@ -32,6 +32,7 @@ typedef enum {
 	MISSING_DOES,
 	MISSING_EXPRESSION,
 	MISSING_STATEMENT,
+	ERROR_SYNTAX,
 	
 } ErrorType;
 
@@ -46,7 +47,7 @@ const char* errors[] = {
 	"Thieu dau ;",
 	"Loi vong lap, thieu DO",
 	"Loi cau lenh IF, thieu THEN",
-	"Thieu expression vong lap FOR",
+	"Thieu ten bien",
 	"Loi vong lap FOR, thieu TO",
 	"Thieu dau .",
 	"Thieu ten chuong trinh",
@@ -59,9 +60,10 @@ const char* errors[] = {
 	"Thieu dinh danh",
 	"Thieu ten thu tuc",
 	"Thieu ten hang so",
-	"Thieu ten bien",
+	"Thieu tham so",
 	"Thieu tham so",
 	"Thieu bien vong lap",
 	"Expected expression",
 	"Expected statement",
+	"Loi cu phap",
 };

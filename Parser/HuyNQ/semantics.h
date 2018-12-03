@@ -267,7 +267,16 @@ void block(){
 		if (Token == IDENT){
 			Token = getToken();
 			if(Token == LPARENT) {
-				do{ 
+
+					Token = getToken();
+					if(Token == VAR)
+						Token = getToken();
+					if(Token == IDENT)
+						Token = getToken();
+					else 
+						getError(MISSING_NAME_PARAMETER);
+
+				while(Token == SEMICOLON){ 
 					Token = getToken();
 					if(Token == VAR)
 						Token = getToken();
@@ -275,7 +284,7 @@ void block(){
 						Token = getToken();
 					else 
 						getError(MISSING_IDENT);
-				} while (Token == SEMICOLON);
+				};
 				if(Token == RPARENT)
 					Token = getToken();
 				else 

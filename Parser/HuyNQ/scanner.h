@@ -175,8 +175,13 @@ TokenType getToken(){
 			getCh();
 			if(c=='*'){
 				isComment = true;
+				while(isComment && c!='\0'){
+					if(c=='\0')
+						return NONE;
+					 Token = getToken();
+				}
 		//		printf(" %s ","COMMENT");
-				return COMMENT;
+				return getToken();
 			}
 		//	printf(" %s ","LPARENT");
 			return LPARENT;
