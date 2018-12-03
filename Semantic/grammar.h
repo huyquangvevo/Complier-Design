@@ -4,7 +4,16 @@
 #include"scanner.h"
 #include"error.h"
 #include "semantics.h"
-void compileDeclareVariable(void){
+
+bool isProcedure = false;
+
+
+/*
+bool isPro(){
+	return isProcedure;
+}
+*/
+void compileDeclareVariable(){
 	if(Token == IDENT){
 		if(checkIdent(Id))
 			enter(Id,OBJ_VARIABLE);	
@@ -29,7 +38,7 @@ void compileDeclareVariable(void){
 	}
 }
 
-void compileDeclareConst(void){
+void compileDeclareConst(){
 	if(Token==IDENT){
 		if(checkIdent(Id))
 			enter(Id,OBJ_CONSTANT);
@@ -39,14 +48,15 @@ void compileDeclareConst(void){
 		Token = getToken();
 		if(Token==EQU){
 			Token = getToken();
+			
 			if(Token==NUMBER){
 				Token = getToken();
-				enter(Id,OBJ_CONSTANT);
+				//enter(Id,OBJ_CONSTANT);
 			} else {
 				getError(MISSING_VALUE);
 			}
 		} else {
-			getError(MISSING_EQL);
+			getError(MISSING_VALUE_CONST);
 		}	
 	} else {
 		getError(MISSING_VARIABLE_CONST);
@@ -96,7 +106,10 @@ void compileDeclareProcedure(){
 			} else {
 				getError(MISSING_RPARENT);
 			}		
-		};	
+		};
+		checkSemicolon();
+		isProcedure = true;
+		compileBlock();	
 	} else {
 		getError(MISSING_PROCEDURE_NAME);
 	}
@@ -105,6 +118,7 @@ void compileDeclareProcedure(){
 void compileCallProcedure(){
 	if(Token==IDENT){
 		if(checkIdent(Id)){
+		//	enter(Id,OBJ_PROCEDURE);
 			Token = getToken();
 			if(Token==LBRACK){
 				Token = getToken();
@@ -120,7 +134,8 @@ void compileCallProcedure(){
 			}
 		} else {
 			getError(UNDECLARED_PROCEDURE);
-		}
+		};
+		
 	} else {
 		getError(MISSING_PROCEDURE_NAME);
 	}
@@ -165,7 +180,7 @@ void compileStatement(){
 		}	
 	} else {
 		statement();
-	}
+	};
 	if(Token == SEMICOLON){
 		//checkSemicolon();
 		Token = getToken();
@@ -179,7 +194,7 @@ void checkSemicolon(){
 		//	compileBlock();
 		} else {
 			getError(MISSING_SEMICOLON);
-		}
+		};
 }
 
 
@@ -193,6 +208,8 @@ void compileBlock(){
 			compileDeclareVariable();
 		}
 		checkSemicolon();
+		if(isProcedure)
+			isProcedure = false;
 		compileBlock();
 	} else if(Token == CONST){
 		Token = getToken();
@@ -202,15 +219,20 @@ void compileBlock(){
 			compileDeclareConst();
 		};
 		checkSemicolon();
+		if(isProcedure)
+			isProcedure = false;
 		compileBlock();
 	} else if(Token==PROCEDURE){
 		Token = getToken();
 		compileDeclareProcedure();
+		if(isProcedure)
+				getError(MISSING_MAIN);
 	} else if(Token == CALL){
 		Token = getToken();
 		compileCallProcedure();
 	} else if(Token==BEGIN){
 	//	do{	
+		//	isProcedure = false;
 			Token = getToken();
 			compileStatement();
 	//	} while(Token == SEMICOLON);
@@ -218,8 +240,13 @@ void compileBlock(){
 			Token = getToken();
 			if(Token == SEMICOLON){
 				Token = getToken();
+				if(isProcedure)
+					isProcedure = false;
 				compileBlock();
-			}
+			} else if(isProcedure){
+				getError(MISSING_SEMICOLON);
+			};
+			
 		} else {
 			getError(MISSING_END);
 		}

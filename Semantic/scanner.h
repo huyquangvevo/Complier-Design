@@ -41,6 +41,12 @@ extern
 int checkKey();
 void reset();
 
+void printIdent(){
+	int i=0;
+	for(i=0;i<=i_ident;i++)
+		printf("%c",Id[i]);
+}
+
 void getCh(){
 	
 	index_ch++;

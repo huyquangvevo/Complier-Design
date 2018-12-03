@@ -1,11 +1,14 @@
 Program huy; 
 
-var a,b,c;
+var a,b,c,d;
+const e=10,f=10;
+procedure Huy(var a);
+const g=20;
 
 BEGIN 
 	
-		b:=a+a;
-		c := a+b;
-		if a>b+*10 then
-		 a:=a;
+		b:=a+d;
+		c:= a+b;
+		if a>b+10 then
+		a:=a+1;
 End.

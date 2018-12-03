@@ -1,8 +1,12 @@
-#ifndef _SEMANTIC_H_
-#define _SEMANTIC_H_
+#ifndef _SEMANTICS_H_
+#define _SEMANTICS_H_
 #include "scanner.h"
 #include "error.h"
-#include"grammar.h"
+//#include "grammar.h"
+
+void compileStatement();
+void checkSemicolon();
+void compileBlock();
 
 void getError(ErrorType ET);
 void expression();
@@ -16,14 +20,25 @@ void statement();
 void printToken(){
 	
 		printf("\n%s\n",keyword[Token]);
+		
 
 }
 
 
 
 void getError(ErrorType ET){
-	printf("\n________________ERROR________________\n");
-	printf("\n\n%s, \n \t tai dong %d\n\n",errors[ET],countLine);
+	printf("\n\n________________ERROR________________\n");
+	printf("\n\n%s, \n \t tai dong %d\n",errors[ET],countLine);
+	if(ET==UNDECLARED_VARIABLE){		
+		printf("Bien: ");
+		printIdent();
+	//	int i=0;
+	//	for(i=0;i<=i_ident;i++)
+	//		printf("%c",Id[i]);
+	} else if(ET==CONFLICT_NAME){
+		printf("Trung ten: ");
+		printIdent();
+	}
 	exit(0);
 	
 };
@@ -45,7 +60,15 @@ void expression(){
 void factor(){
 	
 	if(Token == IDENT) {
-		Token = getToken();
+		
+		if(!checkIdent(Id)){
+			Token = getToken();
+		} else {
+			//printf("\n%s\n",Id);
+			getError(UNDECLARED_VARIABLE);
+		}
+		
+	//	Token = getToken();
 		if(Token == LBRACK) {
 			Token = getToken();
 			expression();
@@ -65,8 +88,8 @@ void factor(){
 		} else {
 			getError(MISSING_RPARENT);
 		};
-	};
-		
+	}; // Loi bieu thuc 
+	
 };
 
 
@@ -333,6 +356,8 @@ void program(){
 				Token = getToken();
 			//	block();
 				compileBlock();
+				//if(isProcedure)
+				//	getError(MISSING_MAIN);
 				if(Token == PERIOD){
 					printf("\n\n ----- Successfull! -----");
 				} else {

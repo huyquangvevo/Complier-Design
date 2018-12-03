@@ -1,7 +1,6 @@
-#ifndef _TABH_
-#define _TABH_
-//#include<vector>
-//#include<utility>
+#ifndef _TAB_H_
+#define _TAB_H_
+
 #include "scanner.h"
 
 #define MAX_IDENT_LEN_ 10
