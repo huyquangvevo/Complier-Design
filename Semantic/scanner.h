@@ -25,12 +25,13 @@ TokenType Token;
 int  countDigit;
 int num;
 #define MAX_IDENT_LEN 50
-#define MAX_LEN_VAR 10
+#define MAX_LEN_VAR 30
 #define MAX_LEN_NUM 9
-char Id[MAX_IDENT_LEN+1];
+char Id[MAX_IDENT_LEN+1],cache[MAX_IDENT_LEN+1];
 char c, str[10000];
 int i_ident = -1;
 int index_ch = -1;
+int size_cache = -1;
 int L;
 bool isComment = false;
 FILE *input;
@@ -40,6 +41,27 @@ extern
 
 int checkKey();
 void reset();
+
+void saveToCache(){
+	int i=0;
+	size_cache = i_ident;
+	for(i=0;i<=i_ident;i++)
+		cache[i] = Id[i];
+/*	printf("\nCache: ");
+	for(i=0;i<=size_cache;i++)
+		printf("%c",cache[i]);
+	printf("\n");
+*/
+}
+
+void printId(){
+	int i=0;
+	printf("\nId :");
+	for(i=0;i<=i_ident;i++)
+		printf("%c",Id[i]);
+	printf("\n");
+}
+
 
 void printIdent(){
 	int i=0;

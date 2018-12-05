@@ -22,6 +22,7 @@ typedef enum {
 struct Object{
 	char id[MAX_IDENT_LEN_];
 	ObjectType type;
+	int other;
 //	Object(char id_[],ObjectType type_){
 //		id = id_;
 //		type = type_;
@@ -40,12 +41,15 @@ void enter(char Id[],ObjectType type){
 	struct Object obj;
 	strcpy(obj.id,Id);
 	obj.type = type;
+	obj.other = 0;
+//	if(obj.type==OBJ_PROCEDURE)
+//		obj.other = coutVar;
 	pushBack(obj);
 }
 
 int location(char Id[]){
 	int i;
-	for(i=0;i<row_tab;i++){
+	for(i=row_tab-1;i>=0;i--){
 		bool isEqual = true;
 		int j;
 		for(j=0;j<=i_ident;j++)
@@ -61,11 +65,13 @@ int location(char Id[]){
 }
 
 bool checkIdent(char Id[]){
-	if(!location(Id))
+	if(!location(Id)){
 		return true;
+	}
 	else
 		return false;
 }
+
 
 ObjectType getKind(int pos){
 //	if(pos-1<row_tab)

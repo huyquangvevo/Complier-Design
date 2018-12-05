@@ -8,10 +8,11 @@
 //#include"semantics.h"
 #include"grammar.h"
 
+
 int main(int argc, char** argv){
 	fflush(stdin);
 //	FILE *input;
-	
+
 	input = fopen("test.txt","r");
 //	input = fopen(argv[1],"r");
 	bool first = true;

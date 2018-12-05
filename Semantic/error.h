@@ -46,6 +46,7 @@ typedef enum ErrorType{
 	UNDECLARED_VARIABLE,
 	MISSING_VALUE_CONST,
 	MISSING_MAIN,
+	EXPECT_UNSIGNED_INT,
 	
 } ErrorType;
 
@@ -81,13 +82,14 @@ const char* errors[] = {
 	"Thieu bien hang",
 	"Thieu bien",
 	"Chua dinh danh tham tri",
-	"Chua dinh nghia ham",
+	"Chua dinh nghia thu tuc",
 	"Ten chua khai bao",
 	"expected variable",
 	"Khong phai la bien Array",
 	"Bien chua duoc khai bao",
 	"Chua gan gia tri cho hang",
 	"Thieu main chuong trinh",
+	"So phan tu mang phai la so duong",
 };
 /*
 void getError(ErrorType ET){

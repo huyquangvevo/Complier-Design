@@ -7,6 +7,9 @@
 void compileStatement();
 void checkSemicolon();
 void compileBlock();
+void compileCallProcedure();
+
+
 
 void getError(ErrorType ET);
 void expression();
@@ -29,7 +32,8 @@ void printToken(){
 void getError(ErrorType ET){
 	printf("\n\n________________ERROR________________\n");
 	printf("\n\n%s, \n \t tai dong %d\n",errors[ET],countLine);
-	if(ET==UNDECLARED_VARIABLE){		
+
+	if(ET==UNDECLARED_VARIABLE||ET==UNDECLARED_NAME){		
 		printf("Bien: ");
 		printIdent();
 	//	int i=0;
@@ -38,7 +42,7 @@ void getError(ErrorType ET){
 	} else if(ET==CONFLICT_NAME){
 		printf("Trung ten: ");
 		printIdent();
-	}
+	} 
 	exit(0);
 	
 };
@@ -64,7 +68,6 @@ void factor(){
 		if(!checkIdent(Id)){
 			Token = getToken();
 		} else {
-			//printf("\n%s\n",Id);
 			getError(UNDECLARED_VARIABLE);
 		}
 		
@@ -72,6 +75,7 @@ void factor(){
 		if(Token == LBRACK) {
 			Token = getToken();
 			expression();
+			//Token = getToken();
 			if(Token == RBRACK) {
 				Token = getToken();
 			} else {
@@ -142,7 +146,7 @@ void statement(){
 	*/ 
 		compileStatement();
 	} else if(Token == CALL){
-		Token = getToken();
+	/*	Token = getToken();
 		if(Token == IDENT){
 			Token = getToken();			
 			if(Token == LPARENT){
@@ -159,16 +163,23 @@ void statement(){
 			};
 		} else 
 			getError(MISSING_NAME_FUNCTION);
+	*/
+		Token = getToken();
+		compileCallProcedure();
 	} else if (Token == BEGIN) {
+		int tx = row_tab;
 		do {
 		Token = getToken();
 		statement();
 		} while(Token == SEMICOLON);
 		if(Token==END) {
+			row_tab = tx;
 			Token = getToken();
 		}
 		else 
 			getError(MISSING_END);
+	
+	//	compileBlock();
 	} else if (Token == IF){
 		Token = getToken();
 		condition();
@@ -195,6 +206,10 @@ void statement(){
 	} else if (Token == FOR){
 		Token = getToken();
 		if(Token == IDENT){
+			
+			if(!checkIdent(Id))
+					getError(UNDECLARED_VARIABLE);
+								
 			Token = getToken();
 			if(Token == ASSIGN){
 				Token = getToken();
@@ -222,7 +237,11 @@ void statement(){
 		} else {
 			getError(MISSING_IDENT);
 		};
-	};
+	} else if(Token == VAR){
+		Token = getToken();
+		compileDeclareVariable();
+		statement();
+	}
 
 };
 
